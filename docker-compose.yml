@@ -1,7 +1,10 @@
 services:
-  invitify-customer-api:
-    build:
-      context: invitify-customer-api
-      dockerfile: ./Dockerfile
+  mysql:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=invitify-database'
+      - 'MYSQL_PASSWORD=root'
+      - 'MYSQL_ROOT_PASSWORD=root'
+      - 'MYSQL_USER=myuser'
     ports:
-      - "8001:8001"
+      - '3306'
