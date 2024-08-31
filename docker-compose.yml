@@ -1,0 +1,7 @@
+services:
+  invitify-customer-api:
+    build:
+      context: invitify-customer-api
+      dockerfile: ./Dockerfile
+    ports:
+      - "8001:8001"
