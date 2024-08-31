@@ -3,6 +3,7 @@ plugins {
     kotlin("plugin.spring") version "2.0.20"
     id("org.springframework.boot") version "3.3.3"
     id("io.spring.dependency-management") version "1.1.6"
+    id("nu.studer.jooq") version "9.0"
 }
 
 group = "com.invitify.customer.api"
@@ -14,7 +15,8 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
-//    implementation("org.springframework.boot:spring-boot-starter-jooq")
+    implementation("org.springframework.boot:spring-boot-starter-jooq")
+    runtimeOnly("com.mysql:mysql-connector-j")
     testImplementation(kotlin("test"))
 }
 
