@@ -1,0 +1,28 @@
+databaseType = "MySql"
+id = "ccccf289-71c3-41c9-95fb-c8b8bda0f0d3"
+name = "invitify-database"
+
+[flyway]
+locations = [ "filesystem:migrations" ]
+mixed = true
+outOfOrder = true
+schemaModelLocation = "schema-model"
+validateMigrationNaming = true
+
+  [flyway.check]
+  majorTolerance = 0
+
+[flywayDesktop]
+developmentEnvironment = "development"
+schemaModel = "schema-model"
+shadowEnvironment = "shadow"
+
+[redgateCompare]
+filterFile = "filter.rgf"
+
+[redgateCompare.mysql.options.ignores]
+ignoreNewlinesInTextObjects = "off"
+
+[environments.invitify-database]
+url = "jdbc:mysql://localhost:3306/"
+schemas = [ "invitify-database" ]
