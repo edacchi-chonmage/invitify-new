@@ -1,14 +1,12 @@
 package com.invitify.customer.api.customers.presentation
 
 import com.invitify.customer.api.customers.model.Customer
-import com.invitify.customer.api.customers.model.CustomerCreateRequest
+import com.invitify.customer.api.customers.model.CustomerEditRequest
+import com.invitify.customer.api.customers.model.CustomerRegisterRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/customers")
@@ -23,11 +21,28 @@ class CustomerController(
         )
     }
 
-    @PostMapping
-    fun createCustomer(
-        @Validated request: CustomerCreateRequest
+    @GetMapping("{id}")
+    fun findById(
+        @PathVariable id: Int
     ): ResponseEntity<Customer> = ResponseEntity(
-        customerService.createCustomer(request),
+        customerService.findById(id),
+        HttpStatus.OK
+    )
+
+    @PostMapping
+    fun register(
+        @Validated request: CustomerRegisterRequest
+    ): ResponseEntity<Customer> = ResponseEntity(
+        customerService.register(request),
         HttpStatus.CREATED
+    )
+
+    @PutMapping("{id}")
+    fun edit(
+        @PathVariable id: Int,
+        @Validated request: CustomerEditRequest
+    ): ResponseEntity<Customer> = ResponseEntity(
+        customerService.edit(id, request),
+        HttpStatus.OK
     )
 }

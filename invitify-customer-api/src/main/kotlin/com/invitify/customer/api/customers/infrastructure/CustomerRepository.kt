@@ -1,7 +1,8 @@
 package com.invitify.customer.api.customers.infrastructure
 
 import com.invitify.customer.api.customers.model.Customer
-import com.invitify.customer.api.customers.model.CustomerCreateRequest
+import com.invitify.customer.api.customers.model.CustomerEditRequest
+import com.invitify.customer.api.customers.model.CustomerRegisterRequest
 import com.invitify.database.generated.invitify_database.Tables
 import org.jooq.DSLContext
 import org.springframework.stereotype.Repository
@@ -27,16 +28,44 @@ class CustomerRepository(
             }
     }
 
-    fun createCustomer(request: CustomerCreateRequest): Customer {
-        val customer = Customer(
-            name = request.name,
-            email = request.email
+    fun findById(id: Int): Customer {
+        return dsl.select(
+            Tables.CUSTOMERS.CUSTOMER_ID,
+            Tables.CUSTOMERS.NAME,
+            Tables.CUSTOMERS.EMAIL
         )
-
-        return upsertCustomer(customer)
+            .from(Tables.CUSTOMERS)
+            .where(Tables.CUSTOMERS.CUSTOMER_ID.eq(id))
+            .fetchOne()
+            .let {
+                Customer(
+                    id = it?.get(Tables.CUSTOMERS.CUSTOMER_ID),
+                    name = it?.get(Tables.CUSTOMERS.NAME) ?: "",
+                    email = it?.get(Tables.CUSTOMERS.EMAIL) ?: ""
+                )
+            }
     }
 
-    private fun upsertCustomer(customer: Customer): Customer {
+    fun register(request: CustomerRegisterRequest): Customer {
+        return upsert(
+            Customer(
+                name = request.name,
+                email = request.email
+            )
+        )
+    }
+
+    fun update(id: Int, request: CustomerEditRequest): Customer {
+        return upsert(
+            Customer(
+                id = id,
+                name = request.name,
+                email = request.email
+            )
+        )
+    }
+
+    private fun upsert(customer: Customer): Customer {
         if (customer.id == null) {
             val result = dsl.insertInto(Tables.CUSTOMERS)
                 .set(Tables.CUSTOMERS.NAME, customer.name)
