@@ -7,6 +7,10 @@ import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(val customerRepository: CustomerRepository) {
+    fun search(): List<Customer> {
+        return customerRepository.search()
+    }
+
     fun createCustomer(request: CustomerCreateRequest): Customer {
         return customerRepository.createCustomer(request)
     }

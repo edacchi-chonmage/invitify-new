@@ -20,6 +20,7 @@ dependencies {
     implementation(libs.jooq)
     implementation(libs.spring.boot.starter.web)
     implementation(libs.spring.boot.starter.jooq)
+    implementation(libs.spring.data.commons)
     runtimeOnly(libs.mysql.driver)
     jooqGenerator(libs.mysql.driver)
     testImplementation(libs.spring.boot.starter.test) {

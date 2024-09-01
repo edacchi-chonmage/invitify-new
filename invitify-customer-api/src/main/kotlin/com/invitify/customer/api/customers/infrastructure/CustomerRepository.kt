@@ -10,6 +10,23 @@ import org.springframework.stereotype.Repository
 class CustomerRepository(
     val dsl: DSLContext
 ) {
+    fun search(): List<Customer> {
+        return dsl.select(
+            Tables.CUSTOMERS.CUSTOMER_ID,
+            Tables.CUSTOMERS.NAME,
+            Tables.CUSTOMERS.EMAIL
+        )
+            .from(Tables.CUSTOMERS)
+            .fetch()
+            .map {
+                Customer(
+                    id = it.get(Tables.CUSTOMERS.CUSTOMER_ID),
+                    name = it.get(Tables.CUSTOMERS.NAME),
+                    email = it.get(Tables.CUSTOMERS.EMAIL)
+                )
+            }
+    }
+
     fun createCustomer(request: CustomerCreateRequest): Customer {
         val customer = Customer(
             name = request.name,
