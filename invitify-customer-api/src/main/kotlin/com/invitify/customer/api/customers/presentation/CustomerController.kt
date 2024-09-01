@@ -1,7 +1,7 @@
-package com.invitify.customer.api.customers
+package com.invitify.customer.api.customers.presentation
 
-import com.invitify.customer.api.customers.models.Customer
-import com.invitify.customer.api.customers.models.CustomerCreateRequest
+import com.invitify.customer.api.customers.model.Customer
+import com.invitify.customer.api.customers.model.CustomerCreateRequest
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated

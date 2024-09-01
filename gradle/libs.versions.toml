@@ -1,0 +1,21 @@
+[versions]
+kotlin = "2.0.20"
+java = "21"
+spring-boot = "3.3.3"
+spring-dependency-management = "1.1.6"
+jooq = "3.19.11"
+mysql-driver = "9.0.0"
+
+[libraries]
+mysql-driver = { module = "com.mysql:mysql-connector-j", version.ref = "mysql-driver" }
+jooq = { module = "org.jooq:jooq", version.ref = "jooq" }
+spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-web", version.ref = "spring-boot" }
+spring-boot-starter-jooq = { module = "org.springframework.boot:spring-boot-starter-jooq", version.ref = "spring-boot" }
+spring-boot-starter-test = { module = "org.springframework.boot:spring-boot-starter-test", version.ref = "spring-boot" }
+
+[plugins]
+kotlin = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin-spring = { id = "org.jetbrains.kotlin.plugin.spring", version.ref = "kotlin" }
+spring-boot = { id = "org.springframework.boot", version.ref = "spring-boot" }
+spring-dependency-management = { id = "io.spring.dependency-management", version.ref = "spring-dependency-management" }
+gradle-jooq = { id = "nu.studer.jooq", version = "9.0" }

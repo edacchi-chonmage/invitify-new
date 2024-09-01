@@ -1,4 +1,4 @@
-package com.invitify.customer.api.customers.models
+package com.invitify.customer.api.customers.model
 
 data class Customer(
     val id: String? = null,
