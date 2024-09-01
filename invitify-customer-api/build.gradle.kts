@@ -1,7 +1,3 @@
-import org.jooq.meta.jaxb.GeneratedSerialVersionUID
-import org.jooq.meta.jaxb.Logging
-import org.jooq.meta.jaxb.Property
-
 plugins {
     alias(libs.plugins.kotlin)
     alias(libs.plugins.kotlin.spring)
@@ -35,29 +31,20 @@ tasks {
     test {
         useJUnitPlatform()
     }
-
-    named<nu.studer.gradle.jooq.JooqGenerate>("generateJooq") {
-        dependsOn(":invitify-jooq-entity:generateJooq")
-    }
 }
 
 jooq {
     version.set(libs.versions.jooq.get())
     edition.set(nu.studer.gradle.jooq.JooqEdition.OSS)
     configurations {
-        create("invitify") {
+        create("main") {
             generateSchemaSourceOnCompilation.set(true)
             jooqConfiguration.apply {
-                logging = Logging.WARN
                 jdbc.apply {
                     driver = "com.mysql.cj.jdbc.Driver"
                     url = "jdbc:mysql://localhost:3306/invitify-database"
                     user = "root"
                     password = "root"
-                    properties.add(Property().apply {
-                        key = "ssl"
-                        value = "true"
-                    })
                 }
                 generator.apply {
                     name = "org.jooq.codegen.DefaultGenerator"
@@ -65,19 +52,15 @@ jooq {
                         name = "org.jooq.meta.mysql.MySQLDatabase"
                         includes = ".*"
                         excludes = "flyway_schema_history"
-                        inputSchema = "invitify-database"
+                    }
+                    generate.apply {
+                        isRecords = true
+                        isImmutablePojos = true
+                        isFluentSetters = true
                     }
                     target.apply {
                         packageName = "com.invitify.database.generated"
                         directory = "src/main/java"
-                    }
-                    generate.apply {
-                        isDeprecated = false
-                        isRecords = true
-                        isImmutablePojos = true
-                        isFluentSetters = true
-                        isGeneratedAnnotation = true
-                        generatedSerialVersionUID = GeneratedSerialVersionUID.HASH
                     }
                     strategy.name = "org.jooq.codegen.DefaultGeneratorStrategy"
                 }

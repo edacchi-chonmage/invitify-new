@@ -45,3 +45,7 @@ bin/
 *.artifact
 report.html
 report.json
+
+src/main/
+
+**/generated/*

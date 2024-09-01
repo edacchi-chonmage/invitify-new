@@ -1,7 +1,7 @@
 package com.invitify.customer.api.customers.model
 
 data class Customer(
-    val id: String? = null,
+    val id: Int? = null,
     val name: String,
     val email: String,
 )
